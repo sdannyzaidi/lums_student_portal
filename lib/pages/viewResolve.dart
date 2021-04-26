@@ -130,6 +130,9 @@ class _ViewResolveState extends State<ViewResolve> {
           });
         });
       }
+      _db.collection("Profiles").doc(delegatedMembers.last).get().then((value) {
+        setState(() => resolvedBy = value.get("name"));
+      });
       setState(() {
         loading = false;
       });
@@ -144,9 +147,7 @@ class _ViewResolveState extends State<ViewResolve> {
       });
     });
     newResolution = resolution;
-    _db.collection("Profiles").doc(delegatedMembers.last).get().then((value) {
-      setState(() => resolvedBy = value.get("name"));
-    });
+
     super.initState();
   }
 
@@ -552,7 +553,7 @@ class _ViewResolveState extends State<ViewResolve> {
                                       padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
                                       child: Row(
                                         children: [
-                                          Text("Delegated to ",
+                                          Text("Delegated to: ",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
